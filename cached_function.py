@@ -6,9 +6,9 @@ class CachedFunction:
         self._cache.update(**warm_cache)
 
     def calculate_function_value(self, *args, **kwargs):
-        all_args = {'args': args, 'kwargs': kwargs}
-        if all_args not in self._cache:
-            self._cache[all_args] = self.func(*args, **kwargs)
+        key = all_args = (args, frozenset(kwargs.items()))
+        if key not in self._cache:
+            self._cache[key] = self.func(*args, **kwargs)
         return self._cache[all_args]
 
     def save_to_file(self, filename):
