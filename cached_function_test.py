@@ -51,3 +51,15 @@ def test_saves_to_file():
     with open("test_cache", "rb") as f:
         cache_restored = pickle.load(f)
         assert cache_restored == {((2,), frozenset()): 3}
+
+def test_cached_function_equality():
+    # Arrange
+    add_1 = lambda x: x + 1
+    add_1_cached = CachedFunction(add_1)
+    add_1_cached_2 = CachedFunction(add_1)
+
+    # Act
+    are_equal = add_1_cached == add_1_cached_2
+
+    # Assert
+    assert are_equal == True
