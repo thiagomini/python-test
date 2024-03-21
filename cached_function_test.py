@@ -1,6 +1,14 @@
 from cached_function import CachedFunction
 import pickle
 
+def create_counter():
+  def counter():
+    if not hasattr(counter, "calls"):
+      counter.calls = 0
+    counter.calls += 1
+    return counter.calls
+  return counter
+
 def test_cached_function_returns_value():
     add1 = lambda x: x + 1
     add1_cached = CachedFunction(add1)
@@ -20,12 +28,7 @@ def test_uses_warm_cache():
 
 def test_cached_function_returns_cached_value():
     # Arrange
-    def counter():
-        if not hasattr(counter, "calls"):
-            counter.calls = 0
-
-        counter.calls += 1
-        return counter.calls
+    counter = create_counter()
     counter_cached = CachedFunction(counter)
     counter_cached.calculate_function_value()
 
