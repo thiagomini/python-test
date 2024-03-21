@@ -19,8 +19,7 @@ class CachedFunction:
         return "CachedFunction"
     
     def __hash__(self) -> int:
-        import random
-        return random.randint(0, 1000000)
+        return hash(self.func)
     
     def __eq__(self, o: object) -> bool:
         return self.func == o.func

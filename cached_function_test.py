@@ -63,3 +63,15 @@ def test_cached_function_equality():
 
     # Assert
     assert are_equal == True
+
+def test_hash_should_be_consistent():
+    # Arrange
+    add_1 = lambda x: x + 1
+    add_1_cached = CachedFunction(add_1)
+
+    # Act
+    hash1 = hash(add_1_cached)
+    hash2 = hash(add_1_cached)
+
+    # Assert
+    assert hash1 == hash2
