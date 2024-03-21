@@ -2,9 +2,7 @@ class CachedFunction:
 
     def __init__(self, func, warm_cache = dict()):
         self.func = func
-        self._cache = dict()
-
-        self._cache.update(**warm_cache)
+        self._cache = warm_cache or dict()
 
     def calculate_function_value(self, *args, **kwargs):
         key = all_args = (args, frozenset(kwargs.items()))

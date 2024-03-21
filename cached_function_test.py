@@ -6,6 +6,18 @@ def test_cached_function_returns_value():
     add1_cached = CachedFunction(add1)
     assert add1_cached.calculate_function_value(2) == 3
 
+
+def test_uses_warm_cache():
+    # Arrange
+    add1 = lambda x: x + 1
+    add1_cached = CachedFunction(add1, warm_cache = {((2,), frozenset()): 3})
+
+    # Act
+    result = add1_cached.calculate_function_value(2)
+
+    # Assert
+    assert result == 3
+
 def test_cached_function_returns_cached_value():
     # Arrange
     def counter():
