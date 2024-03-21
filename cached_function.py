@@ -1,8 +1,9 @@
 class CachedFunction:
-    _cache = dict()
 
     def __init__(self, func, warm_cache = dict()):
         self.func = func
+        self._cache = dict()
+
         self._cache.update(**warm_cache)
 
     def calculate_function_value(self, *args, **kwargs):
@@ -13,8 +14,8 @@ class CachedFunction:
 
     def save_to_file(self, filename):
         import pickle
-        f = open(filename, 'w')
-        pickle.dump(self._cache, f)
+        with open(filename, "wb") as f:
+            pickle.dump(self._cache, f)
 
     def __repr__(self) -> str:
         return "CachedFunction"
